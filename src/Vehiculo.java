@@ -1,4 +1,6 @@
-public class Vehiculo {
+import java.time.Year;
+
+public abstract class Vehiculo {
     protected String placa;
     protected String marca;
     protected String modelo;
@@ -21,7 +23,11 @@ public class Vehiculo {
     }
 
     public void setPlaca(String placa) {
-        this.placa = placa;
+        if (placa == null || placa.isBlank()){
+            System.out.println("ERROR: LA PLACA NO PUEDE ESTAR VACIA");
+        } else {
+            this.placa = placa;
+        }
     }
 
     public String getMarca() {
@@ -29,7 +35,12 @@ public class Vehiculo {
     }
 
     public void setMarca(String marca) {
-        this.marca = marca;
+        if (marca == null || marca.isBlank()) {
+            System.out.println("ERROR: LA MARCA NO PUEDE ESTAR VACIA");
+        } else{
+            this.marca = marca;
+        }
+
     }
 
     public String getModelo() {
@@ -37,7 +48,12 @@ public class Vehiculo {
     }
 
     public void setModelo(String modelo) {
-        this.modelo = modelo;
+        if (modelo == null || marca.isBlank()){
+            System.out.println("ERROR: EL MODELO NO PUEDE ESTAR VACIO");
+        }else {
+            this.modelo = modelo;
+        }
+
     }
 
     public int getAnio() {
@@ -45,7 +61,12 @@ public class Vehiculo {
     }
 
     public void setAnio(int anio) {
-        this.anio = anio;
+        int anioActual = Year.now().getValue();
+        if (anio < 1990 || anio > anioActual){
+            System.out.println("ERROR: EL AÑO DEBE ESTAR ENTRE 1990 Y " + anioActual );
+        }else {
+            this.anio = anio;
+        }
     }
 
     public double getPrecioBase() {
@@ -53,9 +74,12 @@ public class Vehiculo {
     }
 
     public void setPrecioBase(double precioBase) {
-        this.precioBase = precioBase;
+        if (precioBase <= 0){
+            System.out.println("ERROR: EL PRECIO BASE DEBE SER MAYOR A 0");
+        }else {
+            this.precioBase = precioBase;
+        }
     }
-
     @Override
     public String toString() {
         return "Vehiculo{" +
@@ -65,5 +89,15 @@ public class Vehiculo {
                 ", anio=" + anio +
                 ", precioBase=" + precioBase +
                 '}';
+    }
+
+    public abstract double calcularPrecioFinal();
+
+    public String mostrarFicha(){
+        return " PLACA: " + placa + "\n"+
+                " MARCA: " + marca + "\n"+
+                " MODELO: " + modelo + "\n"+
+                " ANIO: " + anio + "\n"+
+                " PRECIO: " + precioBase;
     }
 }
