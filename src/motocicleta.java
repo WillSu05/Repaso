@@ -1,8 +1,8 @@
-public class Motocicleta extends Vehiculo {
+public class motocicleta extends Vehiculo {
 
     private int cilindraje;
 
-    public Motocicleta(String placa, String marca, String modelo, int anio, double precioBase, int cilindraje) {
+    public motocicleta(String placa, String marca, String modelo, int anio, double precioBase, int cilindraje) {
         super(placa, marca, modelo, anio, precioBase);
         setCilindraje(cilindraje);
     }
