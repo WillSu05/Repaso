@@ -1,9 +1,9 @@
-public class automovil extends Vehiculo {
+public class Automovil extends Vehiculo {
 
     private int numeroPuertas;
     private String tipoCombustible;
 
-    public automovil(String placa, String marca, String modelo, int anio, double precioBase,
+    public Automovil(String placa, String marca, String modelo, int anio, double precioBase,
                      int numeroPuertas, String tipoCombustible) {
         super(placa, marca, modelo, anio, precioBase);
         setNumeroPuertas(numeroPuertas);
@@ -11,6 +11,7 @@ public class automovil extends Vehiculo {
     }
 
     public int getNumeroPuertas() {
+
         return numeroPuertas;
     }
 
@@ -23,6 +24,7 @@ public class automovil extends Vehiculo {
     }
 
     public String getTipoCombustible() {
+
         return tipoCombustible;
     }
 
@@ -37,10 +39,6 @@ public class automovil extends Vehiculo {
         this.tipoCombustible = tipoCombustible;
     }
 
-    /**
-     * Precio final = precioBase + 8% de impuesto de matrícula.
-     * Si el combustible es "Eléctrico", el impuesto baja a 4% (incentivo ambiental).
-     */
     @Override
     public double calcularPrecioFinal() {
         double porcentajeImpuesto = tipoCombustible.equalsIgnoreCase("Eléctrico") ? 0.04 : 0.08;
