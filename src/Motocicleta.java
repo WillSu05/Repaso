@@ -1,13 +1,14 @@
-public class motocicleta extends Vehiculo {
+public class Motocicleta extends Vehiculo {
 
     private int cilindraje;
 
-    public motocicleta(String placa, String marca, String modelo, int anio, double precioBase, int cilindraje) {
+    public Motocicleta(String placa, String marca, String modelo, int anio, double precioBase, int cilindraje) {
         super(placa, marca, modelo, anio, precioBase);
         setCilindraje(cilindraje);
     }
 
     public int getCilindraje() {
+
         return cilindraje;
     }
 
@@ -19,10 +20,6 @@ public class motocicleta extends Vehiculo {
         this.cilindraje = cilindraje;
     }
 
-    /**
-     * Precio final = precioBase + 3% de impuesto de matrícula.
-     * Si el cilindraje supera 500 c.c., se suma un recargo adicional del 2%.
-     */
     @Override
     public double calcularPrecioFinal() {
         double porcentaje = 0.03;
