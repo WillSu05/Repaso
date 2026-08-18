@@ -1,7 +1,9 @@
 import java.time.Year;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Vehiculo> inventario = new ArrayList<>();
@@ -14,9 +16,10 @@ public class Main {
             System.out.println("3- Ver valor total del inventario");
             System.out.println("4- Buscar vehiculo por placa");
             System.out.println("0- Salir");
+            System.out.print("Seleccione una opcion: ");
 
-            imprimirPrompt("Seleccione una opcion: ");
-            int opcion = leerEntero(scanner);
+            int opcion = scanner.nextInt();
+            scanner.nextLine();
 
             switch (opcion) {
                 case 1 -> registrarVehiculo(scanner, inventario);
@@ -31,7 +34,7 @@ public class Main {
                 }
                 case 4 -> {
                     System.out.println("\n BUSQUEDA POR PLACA ");
-                    imprimirPrompt("Ingrese la placa a buscar: ");
+                    System.out.print("Ingrese la placa a buscar: ");
                     String placaBusqueda = scanner.nextLine().trim();
                     Vehiculo v = buscarPorPlaca(inventario, placaBusqueda);
                     if (v != null) {
@@ -58,7 +61,6 @@ public class Main {
             System.out.println("Vehiculo registrado exitosamente en el inventario.");
         }
     }
-
     public static void listarInventario(ArrayList<Vehiculo> inventario) {
         if (inventario.isEmpty()) {
             System.out.println("El inventario se encuentra vacio.");
@@ -69,7 +71,6 @@ public class Main {
             System.out.printf("Precio final: $%,.2f COP%n", v.calcularPrecioFinal());
         }
     }
-
     public static double calcularValorTotalInventario(ArrayList<Vehiculo> inventario) {
         double total = 0.0;
         for (Vehiculo v : inventario) {
@@ -90,85 +91,63 @@ public class Main {
         return null;
     }
     public static void registrarVehiculo(Scanner scanner, ArrayList<Vehiculo> inventario) {
-        System.out.println("\n--- REGISTRAR UN VEHICULO ---");
+        System.out.println("\n REGISTRAR UN VEHICULO ");
         System.out.println("1- Automovil");
         System.out.println("2- Motocicleta");
         System.out.println("3- Camion de Carga");
-
-        imprimirPrompt("Seleccione el tipo de vehiculo: ");
-        int tipo = leerEntero(scanner);
+        System.out.print("Seleccione el tipo de vehiculo: ");
+        int tipo = scanner.nextInt();
+        scanner.nextLine();
 
         if (tipo < 1 || tipo > 3) {
             System.out.println("ERROR: TIPO DE VEHICULO NO VALIDO");
             return;
         }
-
-        imprimirPrompt("Ingrese la placa: ");
+        System.out.print("Ingrese la placa: ");
         String placa = scanner.nextLine().trim();
-
         if (buscarPorPlaca(inventario, placa) != null) {
             System.out.println("ERROR: LA PLACA YA SE ENCUENTRA REGISTRADA");
             return;
         }
-
-        imprimirPrompt("Ingrese la marca: ");
+        System.out.print("Ingrese la marca: ");
         String marca = scanner.nextLine().trim();
-
-        imprimirPrompt("Ingrese el modelo: ");
+        System.out.print("Ingrese el modelo: ");
         String modelo = scanner.nextLine().trim();
-
-        imprimirPrompt("Ingrese el ano (1990 - " + Year.now().getValue() + "): ");
-        int anio = leerEntero(scanner);
-
-        imprimirPrompt("Ingrese el precio base: $");
-        double precioBase = leerDouble(scanner);
+        System.out.print("Ingrese el anio (1990 - " + Year.now().getValue() + "): ");
+        int anio = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Ingrese el precio base: $");
+        double precioBase = scanner.nextDouble();
+        scanner.nextLine();
 
         switch (tipo) {
             case 1 -> {
-                imprimirPrompt("Ingrese el numero de puertas (2-5): ");
-                int puertas = leerEntero(scanner);
+                System.out.print("Ingrese el numero de puertas (2-5): ");
+                int puertas = scanner.nextInt();
+                scanner.nextLine();
 
-                imprimirPrompt("Ingrese el tipo de combustible (Gasolina, Diesel, Electrico): ");
+                System.out.print("Ingrese el tipo de combustible (Gasolina, Diesel, Electrico): ");
                 String combustible = scanner.nextLine().trim();
 
                 Automovil auto = new Automovil(placa, marca, modelo, anio, precioBase, puertas, combustible);
                 agregarVehiculo(inventario, auto);
             }
             case 2 -> {
-                imprimirPrompt("Ingrese cilindraje en c.c: ");
-                int cilindraje = leerEntero(scanner);
+                System.out.print("Ingrese cilindraje en c.c.: ");
+                int cilindraje = scanner.nextInt();
+                scanner.nextLine();
 
                 Motocicleta moto = new Motocicleta(placa, marca, modelo, anio, precioBase, cilindraje);
                 agregarVehiculo(inventario, moto);
             }
             case 3 -> {
-                imprimirPrompt("Ingrese la capacidad de toneladas: ");
-                double toneladas = leerDouble(scanner);
+                System.out.print("Ingrese la capacidad en toneladas: ");
+                double toneladas = scanner.nextDouble();
+                scanner.nextLine();
 
                 Camioncarga camion = new Camioncarga(placa, marca, modelo, anio, precioBase, toneladas);
                 agregarVehiculo(inventario, camion);
             }
-        }
-    }
-
-    private static void imprimirPrompt(String mensaje) {
-        System.out.print(mensaje);
-        System.out.flush();
-    }
-
-    private static int leerEntero(Scanner scanner) {
-        try {
-            return Integer.parseInt(scanner.nextLine().trim());
-        } catch (Exception e) {
-            return -1;
-        }
-    }
-
-    private static double leerDouble(Scanner scanner) {
-        try {
-            return Double.parseDouble(scanner.nextLine().trim());
-        } catch (Exception e) {
-            return -1.0;
         }
     }
 }
